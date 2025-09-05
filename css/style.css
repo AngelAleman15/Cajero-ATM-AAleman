@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ece9e9;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-atm{
+    border-radius: 10px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 85vh;
+    width: 25vw;
+}
+
+.displaycontainer-atm{
+    background-color: transparent;
+    padding: 35px 20px 20px 20px;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.screen-atm{
+    background-color: #6eb9cb;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.displaybtn-atm{
+    cursor: pointer;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+}
+
+.btn-atm{
+    background-color: grey;
+    border: none;
+    border-radius: 10px;
+    width: 2vw;
+    height: 4vh;
+}
+
+.componentscontainer-atm{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    padding: 0 20px 20px 20px;
+}
+
+.cardreader-atm{
+    position: relative;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #2c3e50 0%, #34495e 100%);
+    width: 6vw;
+    height: 1.5vh;
+    border: 2px solid #1a252f;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.cardreader-atm::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 0%;
+    background: linear-gradient(to bottom, #000 0%, #1a1a1a 100%);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+    transition: height 0.4s ease-in-out;
+}
+
+.cardreader-atm:hover::before {
+    height: 60%;
+}
+
+.keypad-atm{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+}
+
+.keypad-atm button{
+    box-shadow: 0 1px 4px rgba(0,0,0,0.9) inset;
+    border: 1.5px solid grey;
+    color: white;
+    background-color: grey;
+    width: 3vh;
+    height: 3vh;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.paperscontainer-atm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.cashdispenser-atm{
+    box-shadow: 0 1px 4px rgba(0,0,0,0.9) inset;
+    position: relative;
+    border-radius: 10px;
+    background-color: gray;
+    width: 5vw;
+    height: 4vh;
+    border: 2px solid #b0b0b0;
+}
+
+.receiptprinter-atm{
+    box-shadow: 0 1px 4px rgba(0,0,0,0.9) inset;
+    position: relative;
+    border-radius: 10px;
+    background-color: gray;
+    width: 5vw;
+    height: 4vh;
+    border: 2px solid #b0b0b0;
+}
