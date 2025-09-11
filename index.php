@@ -10,66 +10,23 @@
 <body>
     <div class="main-container">
         <!-- Cartera de tarjetas -->
-        <div class="wallet-section">
-            <div class="wallet-container-small" onclick="toggleWallet()">
-                <div class="wallet-flap"></div>
-                <div class="card-counter">6</div>
-                <div class="wallet-body">
-                    <div class="wallet-interior">
-                        <div class="card-slots">
-                            <div class="card-physical-small visa" data-card="1234567812345678" onclick="selectCard(this, event)">
-                                <div class="card-chip-small"></div>
-                                <div class="card-number-small">1234 5678 9012 5678</div>
-                                <div class="card-holder-small">JUAN PEREZ</div>
-                                <div class="card-brand-small">VISA</div>
-                                <div class="card-valid-small">12/25</div>
-                            </div>
-                            
-                            <div class="card-physical-small mastercard" data-card="8765432187654321" onclick="selectCard(this, event)">
-                                <div class="card-chip-small"></div>
-                                <div class="card-number-small">8765 4321 8765 4321</div>
-                                <div class="card-holder-small">MARIA LOPEZ</div>
-                                <div class="card-brand-small">MASTERCARD</div>
-                                <div class="card-valid-small">10/26</div>
-                            </div>
-                            
-                            <div class="card-physical-small prex" data-card="1111222233334444" onclick="selectCard(this, event)">
-                                <div class="card-chip-small"></div>
-                                <div class="card-number-small">1111 222233 34444</div>
-                                <div class="card-holder-small">CARLOS RUIZ</div>
-                                <div class="card-brand-small">PREX</div>
-                                <div class="card-valid-small">08/27</div>
-                            </div>
-                            
-                            <div class="card-physical-small visa" data-card="5555666677778888" onclick="selectCard(this, event)">
-                                <div class="card-chip-small"></div>
-                                <div class="card-number-small">5555 6666 7777 8888</div>
-                                <div class="card-holder-small">ANA MARTINEZ</div>
-                                <div class="card-brand-small">VISA</div>
-                                <div class="card-valid-small">03/28</div>
-                            </div>
-                            
-                            <div class="card-physical-small mastercard" data-card="9999000011112222" onclick="selectCard(this, event)">
-                                <div class="card-chip-small"></div>
-                                <div class="card-number-small">9999 0000 1111 2222</div>
-                                <div class="card-holder-small">LUIS GARCIA</div>
-                                <div class="card-brand-small">MASTERCARD</div>
-                                <div class="card-valid-small">07/29</div>
-                            </div>
-                            
-                            <div class="card-physical-small prex" data-card="3333444455556666" onclick="selectCard(this, event)">
-                                <div class="card-chip-small"></div>
-                                <div class="card-number-small">3333 444455 56666</div>
-                                <div class="card-holder-small">SOFIA TORRES</div>
-                                <div class="card-brand-small">PREX</div>
-                                <div class="card-valid-small">11/30</div>
-                            </div>
-                        </div>
-                        <div class="wallet-label">MilaCartera</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <?php 
+        session_start(); 
+        
+        // Si hay un POST directo al index.php, redirigir al login
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Location: config/login.php');
+            exit();
+        }
+        ?>
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <!-- Usuario logueado - mostrando wallet.php -->
+            <?php include 'includes/wallet.php'; ?>
+        <?php else: ?>
+            <!-- Usuario no logueado - mostrando walletclosed.php -->
+            <?php include 'includes/walletclosed.php'; ?>   
+        <?php endif; ?>
 
         <!-- Cajero ATM (sin cambios) -->
         <div class="body-atm">

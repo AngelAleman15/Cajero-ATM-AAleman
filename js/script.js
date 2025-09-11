@@ -36,16 +36,6 @@ function selectCard(cardElement, event) {
     cardElement.classList.add('selected');
     selectedCard = cardElement.dataset.card;
     
-    // Actualizar indicador de estado
-    const statusIndicator = document.querySelector('.status-indicator');
-    const statusText = document.querySelector('.status-text');
-    
-    if (statusIndicator && statusText) {
-        statusIndicator.classList.add('active');
-        statusText.textContent = 'Tarjeta seleccionada';
-        statusText.style.color = '#00aa00';
-    }
-    
     // Actualizar LED del cardreader si existe
     const ledText = document.querySelector('.cardreader-led-text');
     if (ledText) {
@@ -117,3 +107,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
