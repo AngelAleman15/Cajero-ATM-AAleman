@@ -9,26 +9,21 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Cartera de tarjetas -->
 
         <?php 
         session_start(); 
         
-        // Si hay un POST directo al index.php, redirigir al login
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: config/login.php');
             exit();
         }
         ?>
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
-            <!-- Usuario logueado - mostrando wallet.php -->
             <?php include 'includes/wallet.php'; ?>
         <?php else: ?>
-            <!-- Usuario no logueado - mostrando walletclosed.php -->
             <?php include 'includes/walletclosed.php'; ?>   
         <?php endif; ?>
 
-        <!-- Cajero ATM (sin cambios) -->
         <div class="body-atm">
             <div class="displaycontainer-atm">
                 <div class="displaybtn-atm" style="top: 35px; left: 20px;">

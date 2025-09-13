@@ -1,33 +1,29 @@
 <?php
     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        $id = $_SESSION['id'];
+        $user_id = $_SESSION['user_id'];
         require_once 'config/database.php';
 
-        // Consulta para obtener las tarjetas del usuario
-        $stmt = $connection->prepare("SELECT t.id, t.numero_tarjeta, t.marca, u.nombre 
-                                     FROM usuarios u 
-                                     INNER JOIN tarjetas t ON u.numero_tarjeta = t.numero_tarjeta 
-                                     WHERE u.id = ?");
-        $stmt->bind_param("i", $id);
+        $stmt = $connection->prepare("SELECT id, numero_tarjeta, marca, saldo, fecha_vencimiento 
+                                     FROM tarjetas 
+                                     WHERE id_usuario = ?");
+        $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
         
-        // Generar tarjetas dinámicamente
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Extraer y sanitizar datos de cada tarjeta
+
                 $tarjeta_id = htmlspecialchars($row['id']);
                 $numero_tarjeta = htmlspecialchars($row['numero_tarjeta']);
                 $marca = htmlspecialchars($row['marca']);
-                $nombre_titular = htmlspecialchars($row['nombre']);
+                $saldo = number_format($row['saldo'], 2);
+                $nombre_titular = htmlspecialchars($_SESSION['nombre_usuario']);
                 
-                // Formatear número de tarjeta (XXXX XXXX XXXX XXXX)
                 $numero_formateado = substr($numero_tarjeta, 0, 4) . ' ' . 
                                    substr($numero_tarjeta, 4, 4) . ' ' . 
                                    substr($numero_tarjeta, 8, 4) . ' ' . 
                                    substr($numero_tarjeta, 12, 4);
                 
-                // Determinar clase CSS según la marca de tarjeta
                 $clase_marca = strtolower(str_replace(' ', '', $marca));
                 switch ($marca) {
                     case 'American Express':
@@ -42,14 +38,13 @@
                     default:
                         $clase_marca = 'default';
                 }
+
+                $fecha_vencimiento = date('m/y', strtotime($row['fecha_vencimiento']));
                 
-                // Generar fecha de vencimiento dinámica
-                $fecha_vencimiento = date('m/y', strtotime('+3 years'));
-                
-                // Crear cada tarjeta HTML dinámicamente
                 echo '<div class="card-physical-small ' . $clase_marca . '" 
                            data-card="' . $numero_tarjeta . '" 
                            data-id="' . $tarjeta_id . '"
+                           data-saldo="' . $saldo . '"
                            onclick="selectCard(this, event)">';
                 echo '    <div class="card-chip-small"></div>';
                 echo '    <div class="card-number-small">' . $numero_formateado . '</div>';
